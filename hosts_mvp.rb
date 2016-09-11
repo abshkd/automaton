@@ -14,14 +14,16 @@ if File.file?("exclude.txt")
     f= File.readlines("exclude.txt")
 end    
 
-open('hosts','w') do |hosts|
-    File.foreach('hosts.txt') do |line|
-        if f.nil?
-            hosts.puts(line)
-        else 
-            hosts.puts(line)  unless f.include? line
+if f.nil?
+    File.rename('hosts.txt','hosts')
+else
+    re = Regexp.union(f)
+    puts re
+    puts f
+    open('hosts','w') do |hosts|
+        File.foreach('hosts.txt') do |line|
+            hosts.puts(line) unless line.match(re)
         end
     end
-end
-
-File.delete 'hosts.txt'
+    File.delete 'hosts.txt'
+end    
