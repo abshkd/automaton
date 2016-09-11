@@ -18,8 +18,6 @@ if f.nil?
     File.rename('hosts.txt','hosts')
 else
     re = Regexp.union(f)
-    puts re
-    puts f
     open('hosts','w') do |hosts|
         File.foreach('hosts.txt') do |line|
             hosts.puts(line) unless line.match(re)
