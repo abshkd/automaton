@@ -11,7 +11,7 @@ open('hosts.txt','w') do |file|
 end
 
 if File.file?("exclude.txt")
-    f= File.readlines("exclude.txt")
+    f= File.readlines("exclude.txt").map(&:strip)
 end    
 
 if f.nil?
